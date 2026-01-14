@@ -5,6 +5,7 @@ import type { Recipe } from './models/Recipe';
 import { Home } from './pages/Home';
 import { Kitchen } from './pages/Kitchen';
 import { Recipes } from './pages/Recipes';
+import { RecipeDetail } from './pages/RecipeDetail';
 import { loadKitchenState, saveKitchenState } from './utils/storage';
 import { mockKitchen } from './data/mockKitchen';
 import recipesData from './data/recipes.json';
@@ -54,6 +55,10 @@ function App() {
             <Route
               path="/recipes"
               element={<Recipes recipes={recipes} kitchen={kitchen} />}
+            />
+            <Route
+              path="/recipes/:id"
+              element={<RecipeDetail recipes={recipes} kitchen={kitchen} />}
             />
           </Routes>
         </main>

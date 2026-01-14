@@ -159,6 +159,12 @@
   padding: 1.5rem;
   background-color: #fff;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.2s, transform 0.2s;
+}
+
+.recipe-card:hover {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+  transform: translateY(-2px);
 }
 
 .recipe-card h3 {
@@ -167,11 +173,40 @@
 }
 
 .recipe-score {
-  font-weight: bold;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
   margin: 0.5rem 0;
   padding: 0.5rem;
   background-color: #e9ecef;
   border-radius: 4px;
+}
+
+.recipe-score-count {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #dc3545;
+}
+
+.recipe-score-explanation {
+  font-size: 0.875rem;
+  font-weight: normal;
+  color: #666;
+}
+
+.recipe-category-section {
+  margin-bottom: 3rem;
+}
+
+.recipe-category-section h2 {
+  margin-bottom: 0.5rem;
+  color: #333;
+}
+
+.recipe-category-description {
+  margin-bottom: 1rem;
+  color: #666;
+  font-style: italic;
 }
 
 .recipe-missing {
@@ -199,4 +234,78 @@
   border-radius: 4px;
   color: #155724;
   font-weight: bold;
+}
+
+/* Recipe Detail Page */
+.recipe-detail {
+  width: 100%;
+  max-width: 800px;
+}
+
+.recipe-detail-back {
+  margin-bottom: 1.5rem;
+  padding: 0.5rem 1rem;
+  background-color: #6c757d;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+.recipe-detail-back:hover {
+  background-color: #5a6268;
+}
+
+.recipe-detail h1 {
+  margin-bottom: 1.5rem;
+  color: #333;
+}
+
+.recipe-detail-status {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-bottom: 2rem;
+  padding: 1rem;
+  background-color: #e9ecef;
+  border-radius: 4px;
+}
+
+.recipe-detail-status-count {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #dc3545;
+}
+
+.recipe-detail-status-explanation {
+  font-size: 0.875rem;
+  font-weight: normal;
+  color: #666;
+}
+
+.recipe-detail-section {
+  margin-bottom: 2rem;
+}
+
+.recipe-detail-section h2 {
+  margin-bottom: 1rem;
+  color: #333;
+  border-bottom: 2px solid #ddd;
+  padding-bottom: 0.5rem;
+}
+
+.recipe-detail-section ul,
+.recipe-detail-section ol {
+  padding-left: 1.5rem;
+}
+
+.recipe-detail-section li {
+  margin: 0.5rem 0;
+  line-height: 1.6;
+}
+
+.recipe-detail-missing {
+  color: #dc3545;
+  font-weight: 500;
 }
