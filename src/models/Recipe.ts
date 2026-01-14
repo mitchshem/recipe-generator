@@ -1,11 +1,11 @@
-import type { Ingredient } from './Ingredient';
+import type { RecipeIngredient } from './Ingredient';
 import type { Appliance } from './Appliance';
 
 export interface Recipe {
   id: string;
   name: string;
-  requiredIngredients: Ingredient[];
-  optionalIngredients: Ingredient[];
+  requiredIngredients: RecipeIngredient[];
+  optionalIngredients: RecipeIngredient[];
   requiredAppliances: Appliance[];
   steps: string[];
 }

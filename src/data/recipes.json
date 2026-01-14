@@ -3,13 +3,13 @@
     "id": "1",
     "name": "Chocolate Chip Cookies",
     "requiredIngredients": [
-      { "id": "1", "name": "Flour", "quantity": 250, "unit": "g", "category": "pantry" },
-      { "id": "2", "name": "Butter", "quantity": 100, "unit": "g", "category": "dairy" },
-      { "id": "3", "name": "Sugar", "quantity": 100, "unit": "g", "category": "pantry" },
-      { "id": "4", "name": "Chocolate Chips", "quantity": 150, "unit": "g", "category": "pantry" }
+      { "id": "1", "name": "Flour", "quantity": 250, "unit": "g", "category": "Pantry Staples" },
+      { "id": "2", "name": "Butter", "quantity": 100, "unit": "g", "category": "Dairy & Eggs" },
+      { "id": "3", "name": "Sugar", "quantity": 100, "unit": "g", "category": "Pantry Staples" },
+      { "id": "4", "name": "Chocolate Chips", "quantity": 150, "unit": "g", "category": "Pantry Staples" }
     ],
     "optionalIngredients": [
-      { "id": "5", "name": "Vanilla Extract", "quantity": 5, "unit": "ml", "category": "pantry" }
+      { "id": "5", "name": "Vanilla Extract", "quantity": 5, "unit": "ml", "category": "Spices & Seasonings" }
     ],
     "requiredAppliances": [
       { "id": "1", "name": "Oven", "type": "cooking" },
@@ -26,12 +26,12 @@
     "id": "2",
     "name": "Scrambled Eggs",
     "requiredIngredients": [
-      { "id": "6", "name": "Eggs", "quantity": 4, "unit": "pieces", "category": "dairy" },
-      { "id": "7", "name": "Butter", "quantity": 20, "unit": "g", "category": "dairy" }
+      { "id": "6", "name": "Eggs", "quantity": 4, "unit": "pieces", "category": "Dairy & Eggs" },
+      { "id": "7", "name": "Butter", "quantity": 20, "unit": "g", "category": "Dairy & Eggs" }
     ],
     "optionalIngredients": [
-      { "id": "8", "name": "Milk", "quantity": 30, "unit": "ml", "category": "dairy" },
-      { "id": "9", "name": "Salt", "quantity": 1, "unit": "pinch", "category": "pantry" }
+      { "id": "8", "name": "Milk", "quantity": 30, "unit": "ml", "category": "Dairy & Eggs" },
+      { "id": "9", "name": "Salt", "quantity": 1, "unit": "pinch", "category": "Spices & Seasonings" }
     ],
     "requiredAppliances": [
       { "id": "3", "name": "Stovetop", "type": "cooking" }
@@ -47,14 +47,14 @@
     "id": "3",
     "name": "Pancakes",
     "requiredIngredients": [
-      { "id": "10", "name": "Flour", "quantity": 200, "unit": "g", "category": "pantry" },
-      { "id": "11", "name": "Eggs", "quantity": 2, "unit": "pieces", "category": "dairy" },
-      { "id": "12", "name": "Milk", "quantity": 250, "unit": "ml", "category": "dairy" },
-      { "id": "13", "name": "Butter", "quantity": 30, "unit": "g", "category": "dairy" }
+      { "id": "10", "name": "Flour", "quantity": 200, "unit": "g", "category": "Pantry Staples" },
+      { "id": "11", "name": "Eggs", "quantity": 2, "unit": "pieces", "category": "Dairy & Eggs" },
+      { "id": "12", "name": "Milk", "quantity": 250, "unit": "ml", "category": "Dairy & Eggs" },
+      { "id": "13", "name": "Butter", "quantity": 30, "unit": "g", "category": "Dairy & Eggs" }
     ],
     "optionalIngredients": [
-      { "id": "14", "name": "Sugar", "quantity": 20, "unit": "g", "category": "pantry" },
-      { "id": "15", "name": "Baking Powder", "quantity": 10, "unit": "g", "category": "pantry" }
+      { "id": "14", "name": "Sugar", "quantity": 20, "unit": "g", "category": "Pantry Staples" },
+      { "id": "15", "name": "Baking Powder", "quantity": 10, "unit": "g", "category": "Pantry Staples" }
     ],
     "requiredAppliances": [
       { "id": "3", "name": "Stovetop", "type": "cooking" }
@@ -70,13 +70,13 @@
     "id": "4",
     "name": "Bread Loaf",
     "requiredIngredients": [
-      { "id": "16", "name": "Flour", "quantity": 500, "unit": "g", "category": "pantry" },
-      { "id": "17", "name": "Water", "quantity": 350, "unit": "ml", "category": "beverage" },
-      { "id": "18", "name": "Yeast", "quantity": 7, "unit": "g", "category": "pantry" },
-      { "id": "19", "name": "Salt", "quantity": 10, "unit": "g", "category": "pantry" }
+      { "id": "16", "name": "Flour", "quantity": 500, "unit": "g", "category": "Pantry Staples" },
+      { "id": "17", "name": "Water", "quantity": 350, "unit": "ml", "category": "Beverages" },
+      { "id": "18", "name": "Yeast", "quantity": 7, "unit": "g", "category": "Pantry Staples" },
+      { "id": "19", "name": "Salt", "quantity": 10, "unit": "g", "category": "Spices & Seasonings" }
     ],
     "optionalIngredients": [
-      { "id": "20", "name": "Olive Oil", "quantity": 20, "unit": "ml", "category": "pantry" }
+      { "id": "20", "name": "Olive Oil", "quantity": 20, "unit": "ml", "category": "Pantry Staples" }
     ],
     "requiredAppliances": [
       { "id": "1", "name": "Oven", "type": "cooking" }

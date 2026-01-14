@@ -1,6 +1,6 @@
 import type { Recipe } from '../models/Recipe';
 import type { KitchenState } from '../models/KitchenState';
-import type { Ingredient } from '../models/Ingredient';
+import type { Ingredient, RecipeIngredient } from '../models/Ingredient';
 import type { Appliance } from '../models/Appliance';
 
 export interface RecipeMatchResult {
@@ -16,7 +16,7 @@ export type FeasibilityLabel = 'Can Make Now' | 'Almost Ready' | 'Missing Ingred
 /**
  * Check if an ingredient exists in the kitchen with sufficient quantity
  */
-const hasIngredient = (required: Ingredient, kitchen: Ingredient[]): boolean => {
+const hasIngredient = (required: RecipeIngredient, kitchen: Ingredient[]): boolean => {
   const found = kitchen.find(
     (ing) => ing.name.toLowerCase() === required.name.toLowerCase()
   );
