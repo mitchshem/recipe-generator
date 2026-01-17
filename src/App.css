@@ -444,3 +444,119 @@
   color: #dc3545;
   font-weight: 500;
 }
+
+.recipe-detail-section li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  margin: 0.5rem 0;
+}
+
+.recipe-detail-section li span {
+  flex: 1;
+}
+
+.recipe-detail-add-to-list {
+  padding: 0.4rem 0.8rem;
+  background-color: #28a745;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.875rem;
+  white-space: nowrap;
+}
+
+.recipe-detail-add-to-list:hover {
+  background-color: #218838;
+}
+
+/* Lists Page */
+.lists-page {
+  width: 100%;
+}
+
+.lists-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.lists-clear-button {
+  padding: 0.5rem 1rem;
+  background-color: #dc3545;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+.lists-clear-button:hover {
+  background-color: #c82333;
+}
+
+.lists-groups {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.lists-group {
+  background-color: #f8f9fa;
+  padding: 1.5rem;
+  border-radius: 8px;
+  border: 1px solid #dee2e6;
+}
+
+.lists-group h2 {
+  margin-top: 0;
+  margin-bottom: 1rem;
+  color: #333;
+  border-bottom: 2px solid #007bff;
+  padding-bottom: 0.5rem;
+}
+
+.lists-items {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.lists-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.75rem;
+  margin: 0.5rem 0;
+  background-color: #fff;
+  border: 1px solid #dee2e6;
+  border-radius: 4px;
+}
+
+.lists-item-name {
+  flex: 1;
+  font-weight: 500;
+}
+
+.lists-item-quantity {
+  color: #666;
+  font-size: 0.9rem;
+}
+
+.lists-item-remove {
+  padding: 0.4rem 0.8rem;
+  background-color: #dc3545;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.875rem;
+}
+
+.lists-item-remove:hover {
+  background-color: #c82333;
+}

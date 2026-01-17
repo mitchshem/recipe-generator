@@ -1,15 +1,18 @@
 import { useParams, useNavigate } from 'react-router-dom';
 import type { Recipe } from '../models/Recipe';
 import type { KitchenState } from '../models/KitchenState';
+import type { ListItem } from '../models/ListItem';
 import { matchRecipe } from '../utils/recipeMatcher';
 import { getFeasibilityLabel } from '../utils/recipeMatcher';
 
 interface RecipeDetailProps {
   recipes: Recipe[];
   kitchen: KitchenState;
+  shoppingList: ListItem[];
+  setShoppingList: React.Dispatch<React.SetStateAction<ListItem[]>>;
 }
 
-export const RecipeDetail = ({ recipes, kitchen }: RecipeDetailProps) => {
+export const RecipeDetail = ({ recipes, kitchen, shoppingList, setShoppingList }: RecipeDetailProps) => {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
 
@@ -27,6 +30,29 @@ export const RecipeDetail = ({ recipes, kitchen }: RecipeDetailProps) => {
   const matchResult = matchRecipe(recipe, kitchen);
   const feasibilityLabel = getFeasibilityLabel(matchResult);
   const missingIngredientNames = new Set(matchResult.missingIngredients);
+
+  const handleAddToList = (ingredientName: string, quantity?: number, unit?: string) => {
+    // Check if item with same name already exists
+    const exists = shoppingList.some(
+      (item) => item.name.toLowerCase() === ingredientName.toLowerCase()
+    );
+    
+    if (exists) {
+      alert(`${ingredientName} is already in your shopping list.`);
+      return;
+    }
+
+    const newItem: ListItem = {
+      id: Date.now().toString(),
+      name: ingredientName,
+      quantity,
+      unit,
+      sourceRecipe: recipe.name,
+    };
+
+    setShoppingList((prev) => [...prev, newItem]);
+    alert(`${ingredientName} added to shopping list!`);
+  };
 
   return (
     <div className="recipe-detail">
@@ -60,8 +86,18 @@ export const RecipeDetail = ({ recipes, kitchen }: RecipeDetailProps) => {
                 key={idx}
                 className={isMissing ? 'recipe-detail-missing' : ''}
               >
-                {isMissing && <strong>[Missing] </strong>}
-                {ingredient.name} - {ingredient.quantity} {ingredient.unit}
+                <span>
+                  {isMissing && <strong>[Missing] </strong>}
+                  {ingredient.name} - {ingredient.quantity} {ingredient.unit}
+                </span>
+                {isMissing && (
+                  <button
+                    onClick={() => handleAddToList(ingredient.name, ingredient.quantity, ingredient.unit)}
+                    className="recipe-detail-add-to-list"
+                  >
+                    Add to List
+                  </button>
+                )}
               </li>
             );
           })}
