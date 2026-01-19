@@ -20,6 +20,7 @@ export interface Ingredient {
   unit: string;
   category: IngredientCategory;
   storageLocation: StorageLocation;
+  expirationDate?: string; // ISO date format (optional)
 }
 
 // Recipe ingredients don't need storageLocation

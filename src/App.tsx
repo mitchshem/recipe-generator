@@ -17,6 +17,9 @@ function App() {
   const [kitchen, setKitchen] = useState<KitchenState>(mockKitchen);
   const [recipes] = useState<Recipe[]>(recipesData as Recipe[]);
   const [shoppingList, setShoppingList] = useState<ListItem[]>([]);
+  const [previousKitchen, setPreviousKitchen] = useState<KitchenState | null>(null);
+  const [lastAddedShoppingItems, setLastAddedShoppingItems] = useState<ListItem[]>([]);
+  const [canUndo, setCanUndo] = useState<boolean>(false);
 
   // Load kitchen state from localStorage on mount
   useEffect(() => {
@@ -44,6 +47,51 @@ function App() {
 
   const handleKitchenChange = (newKitchen: KitchenState) => {
     setKitchen(newKitchen);
+    // Clear undo state when kitchen changes manually (not from cooking)
+    if (canUndo) {
+      setCanUndo(false);
+      setPreviousKitchen(null);
+      setLastAddedShoppingItems([]);
+    }
+  };
+
+  const handleCookRecipe = (updatedKitchen: KitchenState, addedShoppingListItems: ListItem[]) => {
+    // Save current kitchen as previousKitchen BEFORE applying update
+    setPreviousKitchen(kitchen);
+    
+    // Store added shopping list items for undo
+    setLastAddedShoppingItems(addedShoppingListItems);
+    
+    // Apply updatedKitchen
+    setKitchen(updatedKitchen);
+    
+    // Append addedShoppingListItems to shoppingList
+    if (addedShoppingListItems.length > 0) {
+      setShoppingList((prev) => [...prev, ...addedShoppingListItems]);
+    }
+    
+    // Set canUndo = true
+    setCanUndo(true);
+  };
+
+  const undoLastCook = () => {
+    if (!canUndo || previousKitchen === null) {
+      return;
+    }
+
+    // Restore previousKitchen
+    setKitchen(previousKitchen);
+
+    // Remove lastAddedShoppingItems from shoppingList
+    if (lastAddedShoppingItems.length > 0) {
+      const addedIds = new Set(lastAddedShoppingItems.map((item) => item.id));
+      setShoppingList((prev) => prev.filter((item) => !addedIds.has(item.id)));
+    }
+
+    // Reset undo state
+    setCanUndo(false);
+    setPreviousKitchen(null);
+    setLastAddedShoppingItems([]);
   };
 
   return (
@@ -54,6 +102,11 @@ function App() {
           <Link to="/kitchen">Kitchen</Link>
           <Link to="/recipes">Recipes</Link>
           <Link to="/lists">Lists</Link>
+          {canUndo && (
+            <button onClick={undoLastCook} className="nav-undo-button">
+              Undo last cook
+            </button>
+          )}
         </nav>
         <main className="main">
           <Routes>
@@ -64,7 +117,12 @@ function App() {
             <Route
               path="/kitchen"
               element={
-                <Kitchen kitchen={kitchen} onKitchenChange={handleKitchenChange} />
+                <Kitchen
+                  kitchen={kitchen}
+                  onKitchenChange={handleKitchenChange}
+                  shoppingList={shoppingList}
+                  setShoppingList={setShoppingList}
+                />
               }
             />
             <Route
@@ -73,7 +131,7 @@ function App() {
             />
             <Route
               path="/recipes/:id"
-              element={<RecipeDetail recipes={recipes} kitchen={kitchen} shoppingList={shoppingList} setShoppingList={setShoppingList} />}
+              element={<RecipeDetail recipes={recipes} kitchen={kitchen} onCookRecipe={handleCookRecipe} shoppingList={shoppingList} setShoppingList={setShoppingList} />}
             />
             <Route path="/lists" element={<Lists shoppingList={shoppingList} setShoppingList={setShoppingList} />} />
           </Routes>

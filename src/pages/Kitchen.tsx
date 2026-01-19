@@ -2,12 +2,16 @@ import { useState, useMemo } from 'react';
 import type { KitchenState } from '../models/KitchenState';
 import type { Ingredient, IngredientCategory, StorageLocation } from '../models/Ingredient';
 import type { Appliance } from '../models/Appliance';
+import type { ListItem } from '../models/ListItem';
 import { IngredientInput } from '../components/IngredientInput';
 import { getItemImageUrl } from '../utils/imageHelper';
+import { isLowStock } from '../utils/stockHelper';
 
 interface KitchenProps {
   kitchen: KitchenState;
   onKitchenChange: (kitchen: KitchenState) => void;
+  shoppingList: ListItem[];
+  setShoppingList: React.Dispatch<React.SetStateAction<ListItem[]>>;
 }
 
 type Tab = 'fridge' | 'freezer' | 'pantry' | 'appliances';
@@ -27,7 +31,7 @@ const CATEGORIES: IngredientCategory[] = [
   'Other',
 ];
 
-export const Kitchen = ({ kitchen, onKitchenChange }: KitchenProps) => {
+export const Kitchen = ({ kitchen, onKitchenChange, shoppingList, setShoppingList }: KitchenProps) => {
   const [activeTab, setActiveTab] = useState<Tab>('fridge');
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState<IngredientCategory | 'All'>('All');
@@ -75,6 +79,29 @@ export const Kitchen = ({ kitchen, onKitchenChange }: KitchenProps) => {
       ...kitchen,
       appliances: kitchen.appliances.filter((app) => app.id !== id),
     });
+  };
+
+  const handleAddLowStockToList = (ingredient: Ingredient) => {
+    // Check if already in shopping list
+    const exists = shoppingList.some(
+      (item) => item.name.toLowerCase() === ingredient.name.toLowerCase()
+    );
+    
+    if (exists) {
+      alert(`${ingredient.name} is already in your shopping list.`);
+      return;
+    }
+
+    const newItem: ListItem = {
+      id: Date.now().toString(),
+      name: ingredient.name,
+      quantity: ingredient.quantity,
+      unit: ingredient.unit,
+      sourceRecipe: 'Low Stock Alert',
+    };
+
+    setShoppingList((prev) => [...prev, newItem]);
+    alert(`${ingredient.name} added to shopping list!`);
   };
 
   // Filter and sort ingredients for active tab
@@ -188,28 +215,45 @@ export const Kitchen = ({ kitchen, onKitchenChange }: KitchenProps) => {
               <p>No ingredients in {activeTab === 'fridge' ? 'refrigerator' : activeTab === 'freezer' ? 'freezer' : 'pantry'}</p>
             ) : (
               <div className="kitchen-items-grid">
-                {filteredAndSortedIngredients.map((ingredient) => (
-                  <div key={ingredient.id} className="kitchen-item-card">
-                    <img
-                      src={getItemImageUrl(ingredient.name)}
-                      alt={ingredient.name}
-                      className="kitchen-item-image"
-                    />
-                    <div className="kitchen-item-info">
-                      <h3>{ingredient.name}</h3>
-                      <p>
-                        {ingredient.quantity} {ingredient.unit}
-                      </p>
-                      <p className="kitchen-item-category">{ingredient.category}</p>
-                      <button
-                        onClick={() => handleRemoveIngredient(ingredient.id)}
-                        className="kitchen-item-remove"
-                      >
-                        Remove
-                      </button>
+                {filteredAndSortedIngredients.map((ingredient) => {
+                  const lowStock = isLowStock(ingredient);
+                  return (
+                    <div
+                      key={ingredient.id}
+                      className={`kitchen-item-card ${lowStock ? 'kitchen-item-low-stock' : ''}`}
+                    >
+                      {lowStock && (
+                        <span className="kitchen-item-low-stock-badge">Low Stock</span>
+                      )}
+                      <img
+                        src={getItemImageUrl(ingredient.name)}
+                        alt={ingredient.name}
+                        className="kitchen-item-image"
+                      />
+                      <div className="kitchen-item-info">
+                        <h3>{ingredient.name}</h3>
+                        <p>
+                          {ingredient.quantity} {ingredient.unit}
+                        </p>
+                        <p className="kitchen-item-category">{ingredient.category}</p>
+                        {lowStock && (
+                          <button
+                            onClick={() => handleAddLowStockToList(ingredient)}
+                            className="kitchen-item-add-to-list"
+                          >
+                            Add to List
+                          </button>
+                        )}
+                        <button
+                          onClick={() => handleRemoveIngredient(ingredient.id)}
+                          className="kitchen-item-remove"
+                        >
+                          Remove
+                        </button>
+                      </div>
                     </div>
-                  </div>
-                ))}
+                  );
+                })}
               </div>
             )}
           </section>
